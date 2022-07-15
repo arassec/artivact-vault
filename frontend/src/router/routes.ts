@@ -6,7 +6,8 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {path: '', component: () => import('pages/IndexPage.vue')},
-      {path: 'about', component: () => import('pages/IndexPage.vue')},
+      {path: 'artivact/:artivactId?', component: () => import('pages/DetailsPage.vue')},
+      //{path: 'about', component: () => import('pages/IndexPage.vue')},
     ],
   },
 

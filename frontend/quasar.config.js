@@ -11,7 +11,6 @@
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-
 const { configure } = require('quasar/wrappers');
 
 module.exports = configure(function (ctx) {
@@ -33,8 +32,8 @@ module.exports = configure(function (ctx) {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-webpack/boot-files
     boot: [
-
-
+      'model-viewer',
+      'axios'
     ],
 
     // https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-css
@@ -80,6 +79,19 @@ module.exports = configure(function (ctx) {
       // https://v2.quasar.dev/quasar-cli-webpack/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
       // chainWebpack (/* chain */) {}
+
+      chainWebpack: config => {
+        config.module
+          .rule('vue')
+          .use('vue-loader')
+          .tap(options => {
+            options.compilerOptions = {
+              ...options.compilerOptions,
+              isCustomElement: tag => tag.startsWith('model-viewer')
+            }
+            return options
+          })
+      }
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-devServer

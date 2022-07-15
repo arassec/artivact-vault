@@ -1,10 +1,21 @@
 <template>
-  <q-card class="artivact-card">
-    <q-img src="https://cdn.quasar.dev/img/parallax2.jpg">
-      <div class="absolute-bottom text-h6" v-if="artivactCardData.title">
-        {{ artivactCardData.title }}
+  <q-card class="bg-info q-ma-md">
+    <q-img :src="artivactCardData.imageUrl" class="card-image" fit="scale-down">
+      <div class="absolute-bottom text-h6">
+        {{ artivactCardData.title ? artivactCardData.title : '?' }}
       </div>
     </q-img>
+    <router-link :to="'/artivact/' + artivactCardData.artivactId">
+      <q-btn
+        dense
+        round
+        color="secondary"
+        icon="arrow_forward"
+        class="absolute"
+        size="lg"
+        style="top: 120px; right: 12px; transform: translateY(15%);"
+      />
+    </router-link>
   </q-card>
 </template>
 
@@ -15,13 +26,15 @@ import {PropType} from 'vue';
 export default {
   name: 'ArtivactCard',
   props: {
-    artivactCardData: { type: Object as PropType<ArtivactCardData>, required: true}
+    artivactCardData: {type: Object as PropType<ArtivactCardData>, required: true}
   }
 }
 </script>
 
 <style lang="sass" scoped>
-.artivact-card
-  width: 100%
-  max-width: 250px
+
+.card-image
+  width: 300px
+  height: 200px
+
 </style>
